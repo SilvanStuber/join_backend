@@ -1,26 +1,29 @@
 from django.db import models
 
 
-class task(models.Model):
+class Task(models.Model):
     title = models.CharField(max_length=255)
-    taskStatus = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)  # add_task1 save()
-    assigned = models.CharField(max_length=255)
-    dueDate = models.CharField(max_length=255)
-    priorityContentArray = models.CharField(max_length=255)
-    subtasks = models.CharField(max_length=255)
-    tasks = models.CharField(max_length=255)
+    task_status = models.CharField(max_length=20)
+    description = models.TextField()
+    assigned = models.ForeignKey('UserContact', on_delete=models.SET_NULL, null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
+    priority_content = models.CharField(max_length=255)
+    sub_tasks = models.ManyToManyField('SubTask', blank=True, default="")
     category = models.CharField(max_length=255)
-    subT = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
 
 
-class contact(models.Model):
-    title = models.CharField(max_length=255)
-    taskStatus = models.CharField(max_length=255)
-    description = models.TextField(max_length=255)
+class UserContact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
 
     def __str__(self):
-        return self.title
+        return self.name
+    
+class SubTask(models.Model):
+    description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
