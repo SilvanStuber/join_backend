@@ -1,6 +1,7 @@
 from rest_framework import mixins, viewsets
-from tasks_app.models import Task, UserContact
-from .serializer import TasksSerializer
+from rest_framework.permissions import IsAuthenticated
+from contacts_app.models import UserContact
+from .serializer import ContactSerializer
 
 class CreateListRetrieveViewSet(mixins.CreateModelMixin,
                                 mixins.ListModelMixin,
@@ -10,7 +11,7 @@ class CreateListRetrieveViewSet(mixins.CreateModelMixin,
                                 viewsets.GenericViewSet):
     pass
 
-class TasksViewSets(CreateListRetrieveViewSet):
-    queryset = Task.objects.all()
-    serializer_class = TasksSerializer
+class ContactsViewSets(CreateListRetrieveViewSet):
+    queryset = UserContact.objects.all()
+    serializer_class = ContactSerializer
 
