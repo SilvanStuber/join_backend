@@ -1,13 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Task(models.Model):
     title = models.CharField(max_length=255, default="")
     task_status = models.CharField(max_length=255, default="")
     description = models.TextField(default="")
     assigned = models.JSONField(default=list)
-    due_date = models.DateField(null=True, blank=True, default='1999-01-01')  # ISO-Format
+    due_date = models.DateField(null=True, blank=True, default='1999-01-01')
     priority_content = models.CharField(max_length=255, default="")
     category = models.JSONField(default=list)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_tasks")
     sub_tasks = models.ManyToManyField('SubTask', related_name='tasks', blank=True)
 
     def add_to_assigned(self, name):
