@@ -15,14 +15,13 @@ class CreateListRetrieveViewSet(mixins.CreateModelMixin,
 class TasksViewSets(CreateListRetrieveViewSet):
     serializer_class = TasksSerializer
     permission_classes = [IsAuthenticated]
-
-    queryset = Task.objects.all()  # Dummy-Wert, wird durch `get_queryset` überschrieben
+    queryset = Task.objects.all() 
 
     def get_queryset(self):
         user = self.request.user
         return Task.objects.filter(
             Q(creator=user) |
-            Q(assigned__icontains=user.username)  # icontains prüft auf den String innerhalb des JSON-Felds
+            Q(assigned__icontains=user.username) 
         )
 
     def perform_create(self, serializer):

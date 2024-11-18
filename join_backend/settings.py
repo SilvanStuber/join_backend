@@ -77,8 +77,10 @@ TEMPLATES = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
+     "https://silvan-stuber.developerakademie.net",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 WSGI_APPLICATION = 'join_backend.wsgi.application'
 
