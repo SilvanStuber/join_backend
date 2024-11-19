@@ -3,10 +3,13 @@ from user_auth_app.models import UserProfile
 from .serializers import UserProfileSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from .serializers import RegistrationSerializer, CustomLoginSerializer
+from .serializers import RegistrationSerializer, CustomLoginSerializer, UpdateUserSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from rest_framework.generics import RetrieveUpdateAPIView
 
 class UserProfileList(generics.ListCreateAPIView):
     queryset = UserProfile.objects.all()
@@ -54,3 +57,10 @@ class CostomLoginView(ObtainAuthToken):
         else:
             data=serializer.errors  
         return Response(data)
+
+
+class UpdateUserView(RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UpdateUserSerializer
+    permission_classes = [IsAuthenticated]
+    
