@@ -30,7 +30,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255, default="")
     task_status = models.CharField(max_length=255, default="")
     description = models.TextField(default="")
-    assigned = models.JSONField(default=list)
+    assigned = models.JSONField(default=list, blank=True)
     due_date = models.DateField(null=True, blank=True, default='1999-01-01')
     priority_content = models.CharField(max_length=255, default="")
     category = models.JSONField(default=list)

@@ -66,4 +66,6 @@ class TasksSerializer(serializers.ModelSerializer):
                 sub_task_instance, created = SubTask.objects.get_or_create(**sub_task_data)
                 sub_task_instances.append(sub_task_instance)
             instance.sub_tasks.set(sub_task_instances)
+        else:
+            instance.sub_tasks.set("")
         return instance
